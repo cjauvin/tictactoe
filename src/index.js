@@ -104,7 +104,7 @@ class Game extends React.Component {
                         style= {{fontWeight:
                             (move === this.state.stepNumber) ?
                             'bold':
-                            'standard'}}>
+                            'normal'}}>
                         {desc}
                     </button>
                 </li>
