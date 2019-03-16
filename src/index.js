@@ -108,7 +108,7 @@ class Game extends React.Component {
                     </button>
                 </li>
             );
-        }
+        });
 
         let status;
         if (winner) {
