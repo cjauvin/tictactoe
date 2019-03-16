@@ -46,6 +46,7 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            sortAscending: true
         };
     }
 
@@ -77,12 +78,23 @@ class Game extends React.Component {
         });
     }
 
+    toggleSortOrder = () => {
+        // not sure this is actually ok, because of this: https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous
+        // however.. the tutorial does it so..
+        this.setState({
+            sortAscending: !this.state.sortAscending
+        });
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
-        const moves = history.map((step, move) => {
+        let h = Array.from(history.entries());
+        h = this.state.sortAscending ? h.slice() : h.slice().reverse();
+
+        const moves = h.map(([move, step]) => {
             const desc = move ?
                 `Go to move #${move}: ${move % 2 === 0 ? 'O' : 'X'} in (${step.moves[0]}-${step.moves[1]})` :
                 'Go to game start';
@@ -121,6 +133,7 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <button onClick={this.toggleSortOrder}>Toggle sort order</button>
                     <ul>{moves}</ul>
                 </div>
             </div>
