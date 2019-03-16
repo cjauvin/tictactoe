@@ -101,9 +101,10 @@ class Game extends React.Component {
                 <li key={move}>
                     <button
                         onClick={() => this.jumpTo(move)}
-                        style= {(move === this.state.stepNumber) ?
-                        { fontWeight: 'bold'} :
-                         { fontWeight: 'standard' }}>
+                        style= {{fontWeight:
+                            (move === this.state.stepNumber) ?
+                            'bold':
+                            'standard'}}>
                         {desc}
                     </button>
                 </li>
