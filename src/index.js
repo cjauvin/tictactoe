@@ -96,26 +96,22 @@ class Game extends React.Component {
             const desc = move ?
                 `Go to move #${move}: ${move % 2 === 0 ? 'O' : 'X'} in (${step.moves[0]}-${step.moves[1]})`:
                 'Go to game start';
-            
-            if (move === this.state.stepNumber) {
-                return (
-                    <li key={move}>
-                        <button
-                        onClick={() => this.jumpTo(move)}
-                        style={{fontWeight: 'bold'}}>
-                        {desc}
-                        </button>
-                    </li>
-                );
-            } else return (
-                <li key={move}>
-                    <button
-                    onClick={() => this.jumpTo(move)}>
+            // Bold the text of the selected step button
+            return (move === this.state.stepNumber) ?
+            <li key={move}>
+                <button
+                    onClick={() => this.jumpTo(move)}
+                    style={{fontWeight: 'bold'}}>
                     {desc}
-                    </button>
-                </li>
-            );        
-        });
+                </button>
+            </li>
+            :
+            <li key={move}>
+                <button
+                onClick={() => this.jumpTo(move)}>
+                {desc}
+                </button>
+            </li>;
       
         let status;
         if (winner) {
