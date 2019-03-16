@@ -11,7 +11,7 @@ function Square(props) {
         {props.value}
       </button>
     );
-  }
+}
   
 class Board extends React.Component {
     renderSquare(i) {
@@ -91,11 +91,23 @@ class Game extends React.Component {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
+        
         const moves = history.map((step, move) => {
             const desc = move ?
                 `Go to move #${move}: ${move % 2 === 0 ? 'O' : 'X'} in (${step.moves[0]}-${step.moves[1]})`:
                 'Go to game start';
-            return (
+            
+            if (move === this.state.stepNumber) {
+                return (
+                    <li key={move}>
+                        <button
+                        onClick={() => this.jumpTo(move)}
+                        style={{fontWeight: 'bold'}}>
+                        {desc}
+                        </button>
+                    </li>
+                );
+            } else return (
                 <li key={move}>
                     <button
                     onClick={() => this.jumpTo(move)}>
